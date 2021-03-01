@@ -21,6 +21,7 @@ dependency-reduced-pom.xml
 
 # Ignore local log files
 *.log
+*.vscode
 
 # Ignore Generated HTML README Files
 README.html
