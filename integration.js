@@ -45,8 +45,9 @@ function doLookup(entities, options, cb) {
         };
 
         Logger.debug({query:query}, 'Query');
-
-        pool.query(query, function (error, results) {
+        pool.getConnection ()
+            .then (conn => {
+        conn.query(query, function (error, results) {
             if (error) {
                 return done(error);
             }
@@ -79,6 +80,7 @@ function doLookup(entities, options, cb) {
 
             done(null);
         });
+    });
     }, (err) => {
         if(err){
             Logger.error({err:err, stack:err.stack}, 'Error Running Query');
