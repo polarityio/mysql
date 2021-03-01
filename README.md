@@ -1,23 +1,23 @@
-# Polarity PostgreSQL Integration
+# Polarity MySQL Integration
 
 ![image](https://img.shields.io/badge/status-beta-green.svg)
 
-Polarity's PostgreSQL integration allows automated lookups to a PostgreSQL database using a user defined query.  The integration only supports running a single query.  As a result, it is recommended to pick a single entity type using the "Manage Integration Data" option on the integrations page.
+Polarity's MySQL integration allows automated lookups to a MySQL database using a user defined query.  The integration only supports running a single query.  As a result, it is recommended to pick a single entity type using the "Manage Integration Data" option on the integrations page.
 
-This integration uses the excellent [node-postgres](https://github.com/brianc/node-postgres).  While this integration will work out of the box, it primarily intended to provide a well-defined template for constructing your own custom PostgreSQL based integrations.
+This integration uses the excellent [node-mariadb](https://www.npmjs.com/package/mariadb).  While this integration will work out of the box, it primarily intended to provide a well-defined template for constructing your own custom MySQL based integrations.
 
 > Please note that this integration is designed to work with a single database user account.  As a result you should make sure the database connection options (host, port, name, user, and password) are locked (i.e., all users share the same settings)
 
-## PostgreSQL Integration Options
+## MySQL Integration Options
 
 
 #### Database Host
 
-The hostname or IP of the server running the PostgreSQL database you wish to connect to.  Note that you will likely need to make modifications to your pg_hba.conf file to allow the connection to be made.
+The hostname or IP of the server running the MySQL database you wish to connect to.  Note that you will likely need to make modifications to your pg_hba.conf file to allow the connection to be made.
 
 #### Database Port
 
-The port your database is running on.  Defaults to 5432.
+The port your database is running on.  Defaults to 3306.
 
 #### Database Name
 
@@ -39,19 +39,19 @@ This integration only supports running a single query for any registered entity 
 
 For example, if you set the integration to only receive IPv4 addresses then you can set the Query option to the following:
 
-```postgresql
+```MySQL
  SELECT * FROM data WHERE ip = $1
 ```
 
-In the above example `$1` will be replaced with the actual entity value using PostgreSQL's built-in query parameterization to prevent SQL injection.  If the IP address `127.0.0.1` is on your screen then the above query will become:
+In the above example `$1` will be replaced with the actual entity value using MySQL's built-in query parameterization to prevent SQL injection.  If the IP address `127.0.0.1` is on your screen then the above query will become:
 
-```postgresql
+```MySQL
 SELECT * FROM data WHERE ip = '127.0.0.1'
 ```
 
 You can also automatically set return columns to be treated as tags by naming the column with a string that starts with "tag".  For example:
 
-```postgresql
+```MySQL
 SELECT hostname as tag1, location as tag2 WHERE ip = $1
 ```
 
