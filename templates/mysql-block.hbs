@@ -2,7 +2,7 @@
   {{#if (gt index 0)}}
     <hr>
   {{/if}}
-  <h1 class="p-title">Result #{{index}}</h1>
+  <h1 class="p-title">{{fa-icon icon="th-list" fixedWidth=true}} Result #{{index}}</h1>
   {{#each-in row as |key value|}}
     <div>
       <span class="p-key">{{key}}:</span>
