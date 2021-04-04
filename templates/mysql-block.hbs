@@ -1,1 +1,17 @@
-{{object-to-table block.data.details}}
+{{#each block.data.details as | row index |}}
+  {{#if (gt index 0)}}
+    <hr>
+  {{/if}}
+  <h1 class="p-title">{{fa-icon icon="th-list" fixedWidth=true}} Result #{{index}}</h1>
+  {{#each-in row as |key value|}}
+    <div>
+      <span class="p-key">{{key}}:</span>
+      {{#if (gt value.length 200)}}
+        <div class="text-block">{{value}}</div>
+      {{else}}
+        <span class="p-value">{{value}}</span>
+      {{/if}}
+    </div>
+  {{/each-in}}
+{{/each}}
+
