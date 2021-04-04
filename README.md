@@ -10,7 +10,7 @@ This integration uses the excellent [node-mariadb](https://www.npmjs.com/package
 
 | <img src="assets/overlay.png" width="50%"/> |
 |---|
-|*SELECT *, CWE_title as 'CWE Title', CWE_title as tag FROM cwe_list WHERE CWE_number=? LIMIT 5* | 
+|`SELECT *, CWE_title as 'CWE Title', CWE_title as tag FROM cwe_list WHERE CWE_number=? LIMIT 5`| 
 
 ## MySQL Integration Options
 
