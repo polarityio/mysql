@@ -8,6 +8,10 @@ This integration uses the excellent [node-mariadb](https://www.npmjs.com/package
 
 > Please note that this integration is designed to work with a single database user account.  As a result you should make sure the database connection options (host, port, name, user, and password) are locked (i.e., all users share the same settings)
 
+| <img src="assets/overlay.png" width="50%"/> |
+|---|
+|*SELECT *, CWE_title as 'CWE Title', CWE_title as tag FROM cwe_list WHERE CWE_number=? LIMIT 5* | 
+
 ## MySQL Integration Options
 
 #### Database Host

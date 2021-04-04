@@ -6,7 +6,11 @@
   {{#each-in row as |key value|}}
     <div>
       <span class="p-key">{{key}}:</span>
-      <span class="p-value">{{value}}</span>
+      {{#if (gt value.length 200)}}
+        <div class="text-block">{{value}}</div>
+      {{else}}
+        <span class="p-value">{{value}}</span>
+      {{/if}}
     </div>
   {{/each-in}}
 {{/each}}
