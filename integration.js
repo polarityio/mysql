@@ -44,7 +44,6 @@ function doLookup(entities, options, cb) {
         .then((conn) => {
           const parameterCount = _getParameterCount(options.query);
           const parameters = _getParameters(parameterCount, entityObj.value);
-          Logger.info('Parameters', { parameters });
           conn
             .query(options.query, parameters)
             .then((rows) => {
