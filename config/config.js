@@ -80,7 +80,7 @@ module.exports = {
     {
       key: 'port',
       name: 'Database Port',
-      description: 'The port your database instance is listening on',
+      description: 'The port your database instance is listening on (MySQL/MariaDB default port is 3306)',
       default: 3306,
       type: 'number',
       userCanEdit: false,
@@ -110,18 +110,18 @@ module.exports = {
       description: 'The password of the user you are authenticating as',
       default: '',
       type: 'password',
-      userCanEdit: true,
-      adminOnly: false
+      userCanEdit: false,
+      adminOnly: true
     },
     {
       key: 'query',
       name: 'Query',
       description:
-        'The query you want to execute and return data for.  Replace the entity with "?".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with "tag" (e.f., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)',
+        'The query you want to execute and return data for.  Replace the entity with "?".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with "tag" (e.g., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)',
       default: '',
       type: 'text',
-      userCanEdit: true,
-      adminOnly: false
+      userCanEdit: false,
+      adminOnly: true
     }
   ]
 };
