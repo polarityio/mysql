@@ -110,8 +110,8 @@ module.exports = {
       description: 'The password of the user you are authenticating as',
       default: '',
       type: 'password',
-      userCanEdit: true,
-      adminOnly: false
+      userCanEdit: false,
+      adminOnly: true
     },
     {
       key: 'query',
@@ -120,8 +120,8 @@ module.exports = {
         'The query you want to execute and return data for.  Replace the entity with "?".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with "tag" (e.g., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)',
       default: '',
       type: 'text',
-      userCanEdit: true,
-      adminOnly: false
+      userCanEdit: false,
+      adminOnly: true
     }
   ]
 };
