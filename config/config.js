@@ -117,7 +117,7 @@ module.exports = {
       key: 'query',
       name: 'Query',
       description:
-        'The query you want to execute and return data for.  Replace the entity with "?".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with "tag" (e.f., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)',
+        'The query you want to execute and return data for.  Replace the entity with "?".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with "tag" (e.g., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)',
       default: '',
       type: 'text',
       userCanEdit: true,
