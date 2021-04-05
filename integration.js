@@ -149,7 +149,70 @@ function startup(logger) {
   Logger = logger;
 }
 
+function validateOptions(userOptions, cb) {
+  let errors = [];
+  if (
+    typeof userOptions.host.value !== 'string' ||
+    (typeof userOptions.host.value === 'string' && userOptions.host.value.length === 0)
+  ) {
+    errors.push({
+      key: 'host',
+      message: 'You must provide a valid host'
+    });
+  }
+
+  if (
+    typeof userOptions.database.value !== 'string' ||
+    (typeof userOptions.database.value === 'string' && userOptions.database.value.length === 0)
+  ) {
+    errors.push({
+      key: 'database',
+      message: 'You must provide a valid database'
+    });
+  }
+
+  if (
+    typeof userOptions.user.value !== 'string' ||
+    (typeof userOptions.user.value === 'string' && userOptions.user.value.length === 0)
+  ) {
+    errors.push({
+      key: 'user',
+      message: 'You must provide a valid user'
+    });
+  }
+
+  if (
+    typeof userOptions.password.value !== 'string' ||
+    (typeof userOptions.password.value === 'string' && userOptions.password.value.length === 0)
+  ) {
+    errors.push({
+      key: 'password',
+      message: 'You must provide a valid password'
+    });
+  }
+
+  if (
+    typeof userOptions.query.value !== 'string' ||
+    (typeof userOptions.query.value === 'string' && userOptions.query.value.length === 0)
+  ) {
+    errors.push({
+      key: 'query',
+      message: 'You must provide a valid query'
+    });
+  }
+
+  if (userOptions.port.value.length === 0) {
+    errors.push({
+      key: 'port',
+      message: 'You must provide a valid port'
+    });
+  }
+
+  cb(null, errors);
+}
+
 module.exports = {
-  doLookup: doLookup,
-  startup: startup
+  doLookup,
+  startup,
+  validateOptions
 };
