@@ -42,8 +42,11 @@ function doLookup(entities, options, cb) {
       pool
         .getConnection()
         .then((conn) => {
+          const parameterCount = _getParameterCount(options.query);
+          const parameters = _getParameters(parameterCount, entityObj.value);
+          Logger.info('Parameters', { parameters });
           conn
-            .query(options.query, [entityObj.value])
+            .query(options.query, parameters)
             .then((rows) => {
               Logger.debug({ rows }, 'SQL Results');
 
@@ -112,6 +115,35 @@ function _processRows(rows) {
     },
     { details: [], summary: [] }
   );
+}
+
+/**
+ * returns the number of unquoted question marks in the query
+ * @param query
+ * @private
+ */
+function _getParameterCount(query) {
+  let currentChar = '';
+  let previousChar = '';
+  let parameterCount = 0;
+
+  for (let i = 0; i < query.length; i++) {
+    currentChar = query.charAt(i);
+    if (currentChar === '?' && previousChar !== "'") {
+      parameterCount++;
+    }
+    previousChar = currentChar;
+  }
+
+  return parameterCount;
+}
+
+function _getParameters(parameterCount, entityValue) {
+  let parameters = [];
+  for (let i = 0; i < parameterCount; i++) {
+    parameters.push(entityValue);
+  }
+  return parameters;
 }
 
 function startup(logger) {
