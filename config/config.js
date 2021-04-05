@@ -80,7 +80,7 @@ module.exports = {
     {
       key: 'port',
       name: 'Database Port',
-      description: 'The port your database instance is listening on',
+      description: 'The port your database instance is listening on (MySQL/MariaDB default port is 3306)',
       default: 3306,
       type: 'number',
       userCanEdit: false,
