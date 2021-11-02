@@ -7,20 +7,52 @@ let _pool;
 let poolSignature = '';
 let Logger;
 
-function getPool(options) {
-  let optionString = options.host + options.user + options.port + options.password + options.database;
+/**
+ * Override console output in case enableLeakDetection option is turned on as that will attempt to log using
+ * console.log.  We want to capture that output and send it to our integration log file.
+ *
+ * @type {{debug: console.debug, log: console.log, error: console.error, info: console.info}}
+ */
+console = {
+  log: function(){
+    Logger.info(...arguments);
+  },
+  info: function(){
+    Logger.info(...arguments);
+  },
+  error: function(){
+    Logger.error(...arguments);
+  },
+  debug: function(){
+    Logger.debug(...arguments);
+  }
+}
+
+function startup(logger) {
+  Logger = logger;
+}
+
+async function getPool(options) {
+  let optionString = options.host + options.user + options.port + options.password + options.database + options.enableLeakDetection + options.connectionLimit;
   if (poolSignature != optionString) {
     poolSignature = optionString;
 
+    if(_pool){
+      await _pool.end()
+    }
+
     _pool = new mariadb.createPool({
-      connectionLimit: 10,
+      connectionLimit: options.connectionLimit,
       host: options.host,
       user: options.user,
       port: options.port,
       password: options.password,
-      database: options.database
+      database: options.database,
+      allowPublicKeyRetrieval: options.allowPublicKeyRetrieval,
+      leakDetectionTimeout: options.enableLeakDetection ? 10000 : 0
     });
   }
+
   return _pool;
 }
 
@@ -30,48 +62,41 @@ function getPool(options) {
  * @param options
  * @param cb
  */
-function doLookup(entities, options, cb) {
+async function doLookup(entities, options, cb) {
   let lookupResults = [];
-  let pool = getPool(options);
+  let pool = await getPool(options);
 
   Logger.trace({ entities: entities }, 'doLookup');
+  logPoolStats(pool, options);
 
   async.each(
     entities,
-    (entityObj, done) => {
-      pool
-        .getConnection()
-        .then((conn) => {
-          const parameterCount = _getParameterCount(options.query);
-          const parameters = _getParameters(parameterCount, entityObj.value);
-          conn
-            .query(options.query, parameters)
-            .then((rows) => {
-              Logger.debug({ rows }, 'SQL Results');
+    async (entityObj) => {
+      let conn;
+      try {
+        conn = await pool.getConnection();
+        const parameterCount = _getParameterCount(options.query);
+        const parameters = _getParameters(parameterCount, entityObj.value);
+        const rows = await conn.query(options.query, parameters);
 
-              if (rows.length === 0) {
-                lookupResults.push({
-                  entity: entityObj,
-                  data: null
-                });
-              } else {
-                lookupResults.push({
-                  entity: entityObj,
-                  data: _processRows(rows)
-                });
-              }
-              done(null);
-            })
-            .catch((queryError) => {
-              done(queryError);
-            })
-            .finally(() => {
-              conn.end();
-            });
-        })
-        .catch((connectionErr) => {
-          done(connectionErr);
-        });
+        Logger.debug({ rows }, 'SQL Results');
+
+        if (rows.length === 0) {
+          lookupResults.push({
+            entity: entityObj,
+            data: null
+          });
+        } else {
+          lookupResults.push({
+            entity: entityObj,
+            data: _processRows(rows)
+          });
+        }
+      } finally {
+        if (conn) {
+          conn.release();
+        }
+      }
     },
     (err) => {
       if (err) {
@@ -145,8 +170,21 @@ function _getParameters(parameterCount, entityValue) {
   return parameters;
 }
 
-function startup(logger) {
-  Logger = logger;
+function logPoolStats(pool, options) {
+  if(options.enableLeakDetection){
+    Logger.info(
+        {
+          taskQueue: pool.taskQueueSize(),
+          idleConnections: pool.idleConnections(),
+          totalConnections: pool.totalConnections(),
+          activeConnections: pool.activeConnections(),
+          closed: pool.closed,
+          connectionInCreation: pool.connectionInCreation,
+          connectionLimit: options.connectionLimit
+        },
+        'Leak Detection Pool Stats'
+    );
+  }
 }
 
 function validateOptions(userOptions, cb) {

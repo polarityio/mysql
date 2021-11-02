@@ -114,12 +114,41 @@ module.exports = {
       adminOnly: true
     },
     {
+      key: 'connectionLimit',
+      name: 'Connection Limit',
+      description: 'The maximum number of connections that can be maintained in the connection pool at one time.',
+      default: 10,
+      type: 'number',
+      userCanEdit: false,
+      adminOnly: true
+    },
+    {
       key: 'query',
       name: 'Query',
       description:
         'The query you want to execute and return data for.  Replace the entity with "?".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with "tag" (e.g., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)',
       default: '',
       type: 'text',
+      userCanEdit: false,
+      adminOnly: true
+    },
+    {
+      key: 'allowPublicKeyRetrieval',
+      name: 'Allow Public Key Retrieval',
+      description:
+          'This option is only relevant when SSL is disabled. Setting this option to true in 8.0 servers that have the caching_sha2_password authentication plugin as the default plugin will cause the connection attempt to fail if the user hasn\'t successfully connected to the server on a previous occasion.',
+      default: false,
+      type: 'boolean',
+      userCanEdit: false,
+      adminOnly: true
+    },
+    {
+      key: 'enableLeakDetection',
+      name: 'Enable Connection Leak Detection',
+      description:
+          'If checked, this setting will enable connection leak detection logging in the integration\'s log file.  This setting should only be enabled if you are experiencing issues with connection timeouts.',
+      default: false,
+      type: 'boolean',
       userCanEdit: false,
       adminOnly: true
     }
