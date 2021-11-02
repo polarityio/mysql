@@ -70,6 +70,22 @@ SELECT cwe as 'CWE Title', score as 'CWE Score' FROM vuln_listing WHERE cwe = ? 
 
 For queries that can return a large number of results, don't forget to limit the number of return rows.
 
+### Enable Connection Leak Detection
+
+If checked, this setting will enable connection leak detection logging in the integration's log file.  This setting should only be enabled if you are experiencing issues with connection timeouts.
+
+Once enabled you will see robust connection pool logging in the logs:
+
+```
+INFO MySQL: Leak Detection Pool Stats (taskQueue=0, idleConnections=0, totalConnections=0, activeConnections=0, closed=false, connectionLimit=15)
+```
+
+In the event of a connection pool leak you will see the following log in your `logs/integration.log` directory: 
+
+```
+INFO MySQL: Possible connection leak on thread 102 (connection not returned to pool since 10020ms. Did connection.released() been implemented
+```
+
 ## Installation Instructions
 
 Installation instructions for integrations are provided on the [PolarityIO GitHub Page](https://polarityio.github.io/).
