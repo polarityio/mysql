@@ -1,0 +1,114 @@
+{
+  "name": "MySQL",
+  "acronym": "MSQL",
+  "description": "SQL Lookup for MySql and MariaDB databases",
+  "entityTypes": [
+    "*"
+  ],
+  "defaultColor": "light-gray",
+  "styles": [
+    "./styles/mysql.less"
+  ],
+  "block": {
+    "component": {
+      "file": "./components/mysql-block.js"
+    },
+    "template": {
+      "file": "./templates/mysql-block.hbs"
+    }
+  },
+  "request": {
+    "cert": "",
+    "key": "",
+    "passphrase": "",
+    "ca": "",
+    "proxy": "",
+    "rejectUnauthorized": true
+  },
+  "logging": {
+    "level": "info"
+  },
+  "options": [
+    {
+      "key": "host",
+      "name": "Database Host",
+      "description": "The hostname of the server hosting your MySQL Server instance",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "port",
+      "name": "Database Port",
+      "description": "The port your database instance is listening on (MySQL/MariaDB default port is 3306)",
+      "default": 3306,
+      "type": "number",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "database",
+      "name": "Database Name",
+      "description": "The name of the database you are connecting to",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "user",
+      "name": "User",
+      "description": "The database user you are connecting as",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "password",
+      "name": "Users Password",
+      "description": "The password of the user you are authenticating as",
+      "default": "",
+      "type": "password",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "connectionLimit",
+      "name": "Connection Limit",
+      "description": "The maximum number of connections that can be maintained in the connection pool at one time.",
+      "default": 10,
+      "type": "number",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "query",
+      "name": "Query",
+      "description": "The query you want to execute and return data for.  Replace the entity with \"?\".  (e.g., SELECT * FROM data WHERE ip = ?).  Columns that appear as tags should be prefixed with \"tag\" (e.g., SELECT id as tag1, severity as tag2 FROM data WHERE ip = ?)",
+      "default": "",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "allowPublicKeyRetrieval",
+      "name": "Allow Public Key Retrieval",
+      "description": "This option is only relevant when SSL is disabled. Setting this option to true in 8.0 servers that have the caching_sha2_password authentication plugin as the default plugin will cause the connection attempt to fail if the user hasn't successfully connected to the server on a previous occasion.",
+      "default": false,
+      "type": "boolean",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "enableLeakDetection",
+      "name": "Enable Connection Leak Detection",
+      "description": "If checked, this setting will enable connection leak detection logging in the integration's log file.  This setting should only be enabled if you are experiencing issues with connection timeouts.",
+      "default": false,
+      "type": "boolean",
+      "userCanEdit": false,
+      "adminOnly": true
+    }
+  ]
+}
