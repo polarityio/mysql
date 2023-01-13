@@ -1,10 +1,10 @@
 {
-    "main": "./integration.js",
-    "name": "mysql",
-    "version": "3.1.0-beta",
-    "private": true,
-    "dependencies": {
-      "mariadb": "^2.5.4",
-      "async": "^3.2.1"
-    }
+  "name": "mysql",
+  "version": "3.1.1-beta",
+  "main": "./integration.js",
+  "private": true,
+  "dependencies": {
+    "mariadb": "^2.5.4",
+    "async": "^3.2.1"
   }
+}
