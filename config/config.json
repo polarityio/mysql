@@ -1,4 +1,5 @@
 {
+  "polarityIntegrationUuid": "eb64e7c0-cce1-11ed-aeee-075d3490155d",
   "name": "MySQL",
   "acronym": "MSQL",
   "description": "SQL Lookup for MySql and MariaDB databases",
