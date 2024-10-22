@@ -5,6 +5,6 @@
   "private": true,
   "dependencies": {
     "mariadb": "^2.5.4",
-    "async": "^3.2.1"
+    "async": "^3.2.6"
   }
 }
