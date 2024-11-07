@@ -4,12 +4,21 @@
   "acronym": "MSQL",
   "description": "SQL Lookup for MySql and MariaDB databases",
   "entityTypes": [
-    "*"
+    "IPv4",
+    "IPv4CIDR",
+    "IPv6",
+    "domain",
+    "url",
+    "MD5",
+    "SHA1",
+    "SHA256",
+    "email",
+    "cve",
+    "MAC",
+    "string"
   ],
   "defaultColor": "light-gray",
-  "styles": [
-    "./styles/mysql.less"
-  ],
+  "styles": ["./styles/mysql.less"],
   "block": {
     "component": {
       "file": "./components/mysql-block.js"
@@ -17,13 +26,6 @@
     "template": {
       "file": "./templates/mysql-block.hbs"
     }
-  },
-  "request": {
-    "cert": "",
-    "key": "",
-    "passphrase": "",
-    "ca": "",
-    "proxy": ""
   },
   "logging": {
     "level": "info"

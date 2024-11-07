@@ -23,7 +23,7 @@ module.exports = {
    * @optional
    */
   description: 'SQL Lookup for MySql and MariaDB databases',
-  entityTypes: ['*'],
+  entityTypes: ['IPv4', 'IPv4CIDR', 'IPv6', 'domain', 'url', 'MD5', 'SHA1', 'SHA256', 'email', 'cve', 'MAC', 'string'],
   defaultColor: 'light-gray',
   /**
    * An array of style files (css or less) that will be included for your integration. Any styles specified in
@@ -54,7 +54,7 @@ module.exports = {
     key: '',
     passphrase: '',
     ca: '',
-    proxy: ""
+    proxy: ''
   },
   logging: {
     level: 'info' //trace, debug, info, warn, error, fatal
@@ -135,7 +135,7 @@ module.exports = {
       key: 'allowPublicKeyRetrieval',
       name: 'Allow Public Key Retrieval',
       description:
-          'This option is only relevant when SSL is disabled. Setting this option to true in 8.0 servers that have the caching_sha2_password authentication plugin as the default plugin will cause the connection attempt to fail if the user hasn\'t successfully connected to the server on a previous occasion.',
+        "This option is only relevant when SSL is disabled. Setting this option to true in 8.0 servers that have the caching_sha2_password authentication plugin as the default plugin will cause the connection attempt to fail if the user hasn't successfully connected to the server on a previous occasion.",
       default: false,
       type: 'boolean',
       userCanEdit: false,
@@ -145,7 +145,7 @@ module.exports = {
       key: 'enableLeakDetection',
       name: 'Enable Connection Leak Detection',
       description:
-          'If checked, this setting will enable connection leak detection logging in the integration\'s log file.  This setting should only be enabled if you are experiencing issues with connection timeouts.',
+        "If checked, this setting will enable connection leak detection logging in the integration's log file.  This setting should only be enabled if you are experiencing issues with connection timeouts.",
       default: false,
       type: 'boolean',
       userCanEdit: false,
